@@ -14,7 +14,7 @@ jobs:
             python-version: '3.9'
             cache: 'pip' # caching pip dependencies
         - run: |
-            pip install  az.cli
+            pip install  azure-cli-acr
             python date.py
           
         - name: 'Login via Azure CLI'
