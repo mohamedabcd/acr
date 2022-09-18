@@ -1,1 +1,1 @@
-azure-cli
+azure-cli-acr
