@@ -5,6 +5,11 @@ jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
         steps:
+        - name: 'Login via Azure CLI'
+          uses: azure/login@v1
+          with:
+            creds: ${{ secrets.AZURE_CREDENTIALS }}
+            
         # checkout the repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@main
@@ -14,14 +19,9 @@ jobs:
             python-version: '3.9'
             cache: 'pip' # caching pip dependencies
         - run: |
-            pip install  azure-cli-acr
+            pip install az.cli
             python date.py
           
-        - name: 'Login via Azure CLI'
-          uses: azure/login@v1
-          with:
-            creds: ${{ secrets.AZURE_CREDENTIALS }}
-        
         - name: 'Log to ACR'
           uses: azure/docker-login@v1
           with:
