@@ -12,8 +12,10 @@ jobs:
         # checkout the repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@main
-        - name: Azure PowerShell Action
-          uses: Azure/powershell@v1
+        - name: Run Azure PowerShell script
+          uses: azure/powershell@v1
           with:
-            # Specify the Az PowerShell script here.
-            inlineScript: az acr repository list --name acr188 --output table
+            inlineScript: |
+                az acr repository list --name acr188 --output table
+            azPSVersion: "latest"
+         
