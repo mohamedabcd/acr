@@ -1,6 +1,6 @@
 on: [push]
 name: Linux_ACR
-
+az acr repository list --name acr188 --output table
 jobs:
     build-and-deploy:
         runs-on: ubuntu-latest
@@ -13,22 +13,9 @@ jobs:
         # checkout the repo
         - name: 'Checkout GitHub Action'
           uses: actions/checkout@main
-        - name: Checkout
-          uses: actions/setup-python@v4
+        - name: Azure PowerShell Action
+          uses: Azure/powershell@v1
           with:
-            python-version: '3.9'
-            cache: 'pip' # caching pip dependencies
-        - run: |
-            pip install az.cli
-            python date.py
-          
-        - name: 'Log to ACR'
-          uses: azure/docker-login@v1
-          with:
-            login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
-            username: ${{ secrets.REGISTRY_USERNAME }}
-            password: ${{ secrets.REGISTRY_PASSWORD }}
-        - run: |
+            # Specify the Az PowerShell script here.
+            inlineScript: |
             az acr repository list --name acr188 --output table
-
-       
